@@ -14,6 +14,8 @@ import { createFileRoute } from '@tanstack/react-router'
 
 import { Route as rootRoute } from './routes/__root'
 import { Route as ProductsIndexImport } from './routes/products.index'
+import { Route as CategoriesIndexImport } from './routes/categories.index'
+import { Route as SearchTitleImport } from './routes/search.$title'
 import { Route as ProductsProductidImport } from './routes/products.$productid'
 
 // Create Virtual Routes
@@ -38,6 +40,18 @@ const IndexLazyRoute = IndexLazyImport.update({
 const ProductsIndexRoute = ProductsIndexImport.update({
   id: '/products/',
   path: '/products/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const CategoriesIndexRoute = CategoriesIndexImport.update({
+  id: '/categories/',
+  path: '/categories/',
+  getParentRoute: () => rootRoute,
+} as any)
+
+const SearchTitleRoute = SearchTitleImport.update({
+  id: '/search/$title',
+  path: '/search/$title',
   getParentRoute: () => rootRoute,
 } as any)
 
@@ -72,6 +86,20 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof ProductsProductidImport
       parentRoute: typeof rootRoute
     }
+    '/search/$title': {
+      id: '/search/$title'
+      path: '/search/$title'
+      fullPath: '/search/$title'
+      preLoaderRoute: typeof SearchTitleImport
+      parentRoute: typeof rootRoute
+    }
+    '/categories/': {
+      id: '/categories/'
+      path: '/categories'
+      fullPath: '/categories'
+      preLoaderRoute: typeof CategoriesIndexImport
+      parentRoute: typeof rootRoute
+    }
     '/products/': {
       id: '/products/'
       path: '/products'
@@ -88,6 +116,8 @@ export interface FileRoutesByFullPath {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/products/$productid': typeof ProductsProductidRoute
+  '/search/$title': typeof SearchTitleRoute
+  '/categories': typeof CategoriesIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 
@@ -95,6 +125,8 @@ export interface FileRoutesByTo {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/products/$productid': typeof ProductsProductidRoute
+  '/search/$title': typeof SearchTitleRoute
+  '/categories': typeof CategoriesIndexRoute
   '/products': typeof ProductsIndexRoute
 }
 
@@ -103,15 +135,36 @@ export interface FileRoutesById {
   '/': typeof IndexLazyRoute
   '/about': typeof AboutLazyRoute
   '/products/$productid': typeof ProductsProductidRoute
+  '/search/$title': typeof SearchTitleRoute
+  '/categories/': typeof CategoriesIndexRoute
   '/products/': typeof ProductsIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '/' | '/about' | '/products/$productid' | '/products'
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/products/$productid'
+    | '/search/$title'
+    | '/categories'
+    | '/products'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/products/$productid' | '/products'
-  id: '__root__' | '/' | '/about' | '/products/$productid' | '/products/'
+  to:
+    | '/'
+    | '/about'
+    | '/products/$productid'
+    | '/search/$title'
+    | '/categories'
+    | '/products'
+  id:
+    | '__root__'
+    | '/'
+    | '/about'
+    | '/products/$productid'
+    | '/search/$title'
+    | '/categories/'
+    | '/products/'
   fileRoutesById: FileRoutesById
 }
 
@@ -119,6 +172,8 @@ export interface RootRouteChildren {
   IndexLazyRoute: typeof IndexLazyRoute
   AboutLazyRoute: typeof AboutLazyRoute
   ProductsProductidRoute: typeof ProductsProductidRoute
+  SearchTitleRoute: typeof SearchTitleRoute
+  CategoriesIndexRoute: typeof CategoriesIndexRoute
   ProductsIndexRoute: typeof ProductsIndexRoute
 }
 
@@ -126,6 +181,8 @@ const rootRouteChildren: RootRouteChildren = {
   IndexLazyRoute: IndexLazyRoute,
   AboutLazyRoute: AboutLazyRoute,
   ProductsProductidRoute: ProductsProductidRoute,
+  SearchTitleRoute: SearchTitleRoute,
+  CategoriesIndexRoute: CategoriesIndexRoute,
   ProductsIndexRoute: ProductsIndexRoute,
 }
 
@@ -142,6 +199,8 @@ export const routeTree = rootRoute
         "/",
         "/about",
         "/products/$productid",
+        "/search/$title",
+        "/categories/",
         "/products/"
       ]
     },
@@ -153,6 +212,12 @@ export const routeTree = rootRoute
     },
     "/products/$productid": {
       "filePath": "products.$productid.tsx"
+    },
+    "/search/$title": {
+      "filePath": "search.$title.tsx"
+    },
+    "/categories/": {
+      "filePath": "categories.index.tsx"
     },
     "/products/": {
       "filePath": "products.index.tsx"

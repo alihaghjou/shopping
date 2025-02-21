@@ -1,53 +1,16 @@
 import SearchDialog from "@/components/SearchDialog";
 import { Button } from "@/components/ui/button";
-import { DialogHeader, DialogFooter } from "@/components/ui/dialog";
-import { Input } from "@/components/ui/input";
-import { Label } from "@/components/ui/label";
-import {
-  Dialog,
-  DialogTrigger,
-  DialogContent,
-  DialogTitle,
-  DialogDescription,
-  DialogClose,
-} from "@radix-ui/react-dialog";
 import { createLazyFileRoute, Link } from "@tanstack/react-router";
-import { Copy, Search, ShoppingCart } from "lucide-react";
+import { Search, ShoppingCart } from "lucide-react";
 import { useState } from "react";
-
-const categoriesList = [
-  "beauty",
-  "fragrances",
-  "furniture",
-  "groceries",
-  "home-decoration",
-  "kitchen-accessories",
-  "laptops",
-  "mens-shirts",
-  "mens-shoes",
-  "mens-watches",
-  "mobile-accessories",
-  "motorcycle",
-  "skin-care",
-  "smartphones",
-  "sports-accessories",
-  "sunglasses",
-  "tablets",
-  "tops",
-  "vehicle",
-  "womens-bags",
-  "womens-dresses",
-  "womens-jewellery",
-  "womens-shoes",
-  "womens-watches",
-];
 
 export const Route = createLazyFileRoute("/")({
   component: IndexComponent,
 });
 
 function IndexComponent() {
-    const [isSearchOpen, setIsSearchOpen] = useState(false)
+  const [isSearchOpen, setIsSearchOpen] = useState(false);
+  console.log();
   return (
     <div className="min-h-screen flex flex-col">
       <header className="bg-white shadow-sm">
@@ -93,7 +56,10 @@ function IndexComponent() {
         </div>
       </header>
 
-      <SearchDialog isOpen={isSearchOpen} onClose={() => setIsSearchOpen(false)} />
+      <SearchDialog
+        isOpen={isSearchOpen}
+        onClose={() => setIsSearchOpen(false)}
+      />
 
       <main className="flex-grow">
         {/* Hero Section */}
@@ -121,34 +87,37 @@ function IndexComponent() {
         </section>
 
         {/* Featured Categories */}
-        <section className="py-12">
+        <section className="py-12 flex flex-col gap-8">
           <div className="container mx-auto px-4">
-            <h2 className="text-3xl font-bold mb-8 text-center">
+            <h2 className="text-3xl font-bold text-center mb-8">
               Shop by Category
             </h2>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {categoriesList.map((category) => (
-                <Link
-                  key={category}
-                  to={`/category/${category.toLowerCase()}`}
-                  className="group"
-                >
-                  <div className="relative aspect-square overflow-hidden rounded-lg">
-                    <img
-                      src={`/placeholder.svg?height=300&width=300&text=${category}`}
-                      alt={category}
-                      className="group-hover:scale-110 transition-transform duration-200"
-                    />
-                    <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
-                      <span className="text-white text-xl font-semibold capitalize">
-                        {category}
-                      </span>
+              {["beauty", "fragrances", "furniture", "groceries"].map(
+                (category) => (
+                  <Link
+                    key={category}
+                    to={`/category/${category.toLowerCase()}`}
+                    className="group"
+                  >
+                    <div className="relative aspect-square overflow-hidden rounded-lg">
+                      <img
+                        src={`/placeholder.svg?height=300&width=300&text=${category}`}
+                        alt={category}
+                        className="group-hover:scale-110 transition-transform duration-200"
+                      />
+                      <div className="absolute inset-0 bg-black bg-opacity-40 flex items-center justify-center">
+                        <span className="text-white text-xl font-semibold capitalize">
+                          {category}
+                        </span>
+                      </div>
                     </div>
-                  </div>
-                </Link>
-              ))}
+                  </Link>
+                )
+              )}
             </div>
           </div>
+          <Button className="mx-auto">View All Categories</Button>
         </section>
 
         {/* New Arrivals */}
@@ -178,7 +147,7 @@ function IndexComponent() {
               ))}
             </div>
             <div className="text-center mt-8">
-              <Button variant="outline">View All New Arrivals</Button>
+              <Button>View All New Arrivals</Button>
             </div>
           </div>
         </section>
