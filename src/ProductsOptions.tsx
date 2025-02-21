@@ -1,5 +1,5 @@
 import { infiniteQueryOptions, queryOptions } from "@tanstack/react-query";
-import { fetchCategory, fetchItems, fetchOneItem, fetchSearch } from "./GetItems";
+import { fetchCategory, fetchItems, fetchOneItem, fetchProductsBasedCategory, fetchSearch } from "./GetItems";
 
 export const productsOptions = () =>
   infiniteQueryOptions({
@@ -40,4 +40,9 @@ export const categoriesOptions = () =>
     queryFn: () => fetchCategory(),
     staleTime: 60000,
   });
-
+export const productsBasedOnCategoriesOptions = (category:string) =>
+  queryOptions({
+    queryKey: ["categories", {category}],
+    queryFn: () => fetchProductsBasedCategory(category),
+    staleTime: 60000,
+  });

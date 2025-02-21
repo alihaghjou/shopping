@@ -31,7 +31,7 @@ export default function SearchDialog({
             placeholder="Enter your search query"
             value={searchQuery}
             onChange={(e) => setSearchQuery(e.target.value)}
-            className="flex-grow"
+            className="grow"
           />
           <Link to="/search/$title" params={{
             title: searchQuery

@@ -92,3 +92,20 @@ export const fetchCategory: () => Promise<categoryType[]> = async () => {
   const data = await res.json();
   return data;
 };
+
+type ProductsBasedCategoryType = {
+  products: ProductType[];
+  total: number;
+  skip: number;
+  limit: number;
+};
+
+export const fetchProductsBasedCategory: (
+  category: string
+) => Promise<ProductsBasedCategoryType> = async (category: string) => {
+  const res = await fetch(
+    `https://dummyjson.com/products/category/${category}`
+  );
+  const data = await res.json();
+  return data;
+};

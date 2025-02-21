@@ -3,8 +3,6 @@ import { categoriesOptions } from "@/ProductsOptions";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { createFileRoute, Link } from "@tanstack/react-router";
 
-
-
 export const Route = createFileRoute("/categories/")({
   component: RouteComponent,
   loader: ({context: {queryClient}}) => queryClient.ensureQueryData(categoriesOptions())
@@ -13,15 +11,13 @@ export const Route = createFileRoute("/categories/")({
 function RouteComponent() {
   const {data: categories, isLoading, error} = useSuspenseQuery(categoriesOptions());
 
-  console.log(categories)
-
   if (isLoading) return <div>Loading...</div>
   if (error) throw new Error(error.message)
 
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
       {categories.map((category) => (
-        <Link href={`/category/${category.slug}`}>
+        <Link href={`/categories/${category.slug}`}>
         <Card className="transition-colors duration-200 hover:bg-gray-50">
           <CardContent className="flex justify-between items-center p-4">
             <h3 className="text-lg font-semibold">{category.name}</h3>
